@@ -11,7 +11,7 @@ class Asistencia extends Model
 
     protected $table = 'asistencia';
 
-    protected $fillable = [ 'id', 'dni', 'id_mac', 'fecha', 'hora', 'fecha_biometrico', 'status'. 'tipo_entidad'];
+    protected $fillable = [ 'id', 'dni', 'id_mac', 'fecha', 'hora', 'fecha_biometrico', 'status', 'tipo_entidad'];
 
     public $timestamps = false;
 }

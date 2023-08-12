@@ -68,16 +68,22 @@
                 </div>
             </li>
 
-            <li class="side-nav-title side-nav-item mt-1">Components</li>
-
+            <li class="side-nav-title side-nav-item mt-1">CONTROL DE BIENES</li>
             
 
-            <li class="side-nav-item">
-                <a href="widgets.html" class="side-nav-link">
-                    <i class="uil-layer-group"></i>
-                    <span> Widgets </span>
+            <li class="side-nav-item @if (Request::is('inventario*')) menuitem-active @endif"">
+                <a href="{{ route('inventario.inventario') }}" class="side-nav-link">
+                    <i class="dripicons-photo-group"></i>
+                    <span> Inventario </span>
                 </a>
-            </li>           
+            </li>
+
+            <li class="side-nav-item @if (Request::is('almacen*')) menuitem-active @endif"">
+                <a href="{{ route('almacen.almacen') }}" class="side-nav-link">
+                    <i class="dripicons-store"></i>
+                    <span> Almacen </span>
+                </a>
+            </li>         
         </ul>
 
         

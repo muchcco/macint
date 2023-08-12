@@ -4,9 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PagesController;
 
+
 use App\Http\Controllers\Personal\PcmController;
+use App\Http\Controllers\Almacen\AlmacenController;
 use App\Http\Controllers\Personal\PcmTabController;
 use App\Http\Controllers\Personal\AsesoresController;
+use App\Http\Controllers\Inventari\InventarioController;
 use App\Http\Controllers\Personal\AsesoresTabController;
 use App\Http\Controllers\Asistencia\AsistenciaController;
 
@@ -43,6 +46,24 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/tablas/tb_asistencia' , [AsistenciaController::class, 'tb_asistencia'])->name('tablas.tb_asistencia');
         Route::post('/modals/md_add_asistencia' , [AsistenciaController::class, 'md_add_asistencia'])->name('modals.md_add_asistencia');
         Route::post('/store_asistencia' , [AsistenciaController::class, 'store_asistencia'])->name('store_asistencia');
+
+    });
+
+    Route::group(['prefix'=>'almacen','as'=>'almacen.' ],function () {
+
+        Route::get('/almacen' , [AlmacenController::class, 'almacen'])->name('almacen');
+        Route::get('/tablas/tb_almacen' , [AlmacenController::class, 'tb_almacen'])->name('tablas.tb_almacen');
+
+    });
+
+    Route::group(['prefix'=>'inventario','as'=>'inventario.' ],function () {
+
+        Route::get('/inventario' , [InventarioController::class, 'inventario'])->name('inventario');
+        Route::get('/tablas/tb_inventario' , [InventarioController::class, 'tb_inventario'])->name('tablas.tb_inventario');
+        Route::get('/asignacion_inventario/{id}' , [InventarioController::class, 'asignacion_inventario'])->name('asignacion_inventario');
+        Route::get('/tablas/tb_asig_b' , [InventarioController::class, 'tb_asig_b'])->name('tablas.tb_asig_b');
+        Route::post('/modals/md_add_producto' , [InventarioController::class, 'md_add_producto'])->name('modals.md_add_producto');
+        Route::get('/tablas/tb_add_producto' , [InventarioController::class, 'tb_add_producto'])->name('tablas.tb_add_producto');
 
     });
 });

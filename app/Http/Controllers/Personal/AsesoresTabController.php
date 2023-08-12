@@ -25,6 +25,7 @@ class AsesoresTabController extends Controller
         $query = Personal::join('entidad', 'entidad.id', '=', 'personal.entidad')
                             ->select('personal.dni', DB::raw("CONCAT(personal.ap_pat,' ',personal.ap_mat,', ',personal.nombre) as nombreu"), 'entidad.nombre_abrv as nombre_entidad', 'personal.sexo', 'personal.telefono', 'personal.flag', 'personal.id' )
                             ->where('externo' , '1')
+                            ->orderBy('nombre_entidad', 'ASC')
                             ->get();
 
         $view = view('personal.tablas.tb_asesores', compact('query'))->render();

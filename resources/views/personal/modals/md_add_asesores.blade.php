@@ -63,7 +63,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-danger " data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
             <button type="button" class="btn btn-outline-success" id="btnEnviarForm" onclick="btnStoreAsesor()">Guardar</button>
         </div>
     </div>

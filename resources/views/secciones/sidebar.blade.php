@@ -83,7 +83,17 @@
                     <i class="dripicons-store"></i>
                     <span> Almacen </span>
                 </a>
-            </li>         
+            </li>
+
+            <li class="side-nav-title side-nav-item mt-1">mi cuenta</li>
+
+            <li class="side-nav-item @if (Request::is('m_bienes*')) menuitem-active @endif"">
+                <a href="{{ route('m_bienes.m_bien') }}" class="side-nav-link">
+                    <i class="mdi-account-outline"></i>
+                    <span> Mis bienes </span>
+                </a>
+            </li>
+
         </ul>
 
         

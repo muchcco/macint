@@ -17,6 +17,8 @@ class Inventario extends Model
                             'fecha_entrega', 
                             'flag', 
                             'fecha_devol', 
+                            'validez_per',
+                            'fecha_validez',
                             'observacion'
                         ];
 

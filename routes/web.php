@@ -7,6 +7,7 @@ use App\Http\Controllers\PagesController;
 
 use App\Http\Controllers\Personal\PcmController;
 use App\Http\Controllers\Almacen\AlmacenController;
+use App\Http\Controllers\Personal\BienesController;
 use App\Http\Controllers\Personal\PcmTabController;
 use App\Http\Controllers\Personal\AsesoresController;
 use App\Http\Controllers\Inventari\InventarioController;
@@ -64,7 +65,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/tablas/tb_asig_b' , [InventarioController::class, 'tb_asig_b'])->name('tablas.tb_asig_b');
         Route::post('/modals/md_add_producto' , [InventarioController::class, 'md_add_producto'])->name('modals.md_add_producto');
         Route::get('/tablas/tb_add_producto' , [InventarioController::class, 'tb_add_producto'])->name('tablas.tb_add_producto');
+        Route::post('/storeproducto_ass' , [InventarioController::class, 'storeproducto_ass'])->name('storeproducto_ass');
+        Route::post('/deleteproducto_ass' , [InventarioController::class, 'deleteproducto_ass'])->name('deleteproducto_ass');
+        Route::post('/modals/md_add_observacion' , [InventarioController::class, 'md_add_observacion'])->name('modals.md_add_observacion');
+        Route::post('/store_obser_ass' , [InventarioController::class, 'store_obser_ass'])->name('store_obser_ass');
 
     });
+
+    Route::group(['prefix'=>'m_bienes','as'=>'m_bienes.' ],function () {
+        Route::get('/m_bien' , [BienesController::class, 'm_bien'])->name('m_bien');
+    }); 
+
 });
 

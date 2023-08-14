@@ -11,7 +11,7 @@ class Personal extends Model
 
     protected $table = 'personal';
 
-    protected $fillable = [ 'id', 'nombre', 'ap_pat', 'ap_mat', 'dni', 'entidad', 'sexo'. 'telefono', 'flag'];
+    protected $fillable = [ 'id', 'nombre', 'ap_pat', 'ap_mat', 'dni', 'correo','entidad', 'sexo'. 'telefono', 'flag'];
 
     public $timestamps = false;
 }

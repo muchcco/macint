@@ -77,12 +77,12 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Log In | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
+        <title>Iniciar Sesión - Sistema Intranet Mac Junín</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="assets/images/mac-logo.png">
 
         <!-- App css -->
         <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
@@ -102,13 +102,14 @@
                         <!-- Logo -->
                         <div class="auth-brand text-center text-lg-start">
                             <a href="index.html" class="logo-dark">
-                                <span><img src="assets/images/logo-dark.png" alt="" height="18"></span>
+                                <span><img src="assets/images/mac-general.png" alt="" height="60"></span>
                             </a>
                             <a href="index.html" class="logo-light">
-                                <span><img src="assets/images/logo.png" alt="" height="18"></span>
+                                <span><img src="assets/images/mac-general.png" alt="" height="60"></span>
                             </a>
                         </div>
-
+                        <br />
+                        <br />
                         <!-- title-->
                         <h4 class="mt-0">Iniciar Sesión</h4>
                         <p class="text-muted mb-4">Ingrese su DNI y su contraseña.</p>
@@ -127,19 +128,29 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <a href="pages-recoverpw-2.html" class="text-muted float-end"><small>Forgot your password?</small></a>
+                                <a href="pages-recoverpw-2.html" class="text-muted float-end"><small>Olvidaste tu contraseña?</small></a>
                                 <label for="password" class="form-label">Contraseña</label>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                             </div>
+                            <div class="mb-3">
+                                <div class="captcha">
+                                    <span id="captcha_img1">{!! captcha_img() !!}</span>
+                                    <button type="button" class="btn btn-danger" id="reload" >&#x21bb;</button>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <input id="captcha" type="text" class="form-control @error('captcha') is-invalid @enderror" name="captcha" required >
+                            </div>
+
                             <div class="d-grid mb-0 text-center">
-                                <button class="btn btn-primary" type="submit"><i class="mdi mdi-login"></i> Log In </button>
+                                <button class="btn btn-primary" type="submit"><i class="mdi mdi-login"></i> Ingresar </button>
                             </div>
                         </form>
                         <!-- end form-->
 
                         <!-- Footer-->
                         <footer class="footer footer-alt">
-                            <p class="text-muted">Don't have an account? <a href="pages-register-2.html" class="text-muted ms-1"><b>Sign Up</b></a></p>
+                            {{-- <p class="text-muted">Don't have an account? <a href="pages-register-2.html" class="text-muted ms-1"><b>Sign Up</b></a></p> --}}
                            
                         </footer>
 
@@ -166,6 +177,21 @@
         <!-- bundle -->
         <script src="assets/js/vendor.min.js"></script>
         <script src="assets/js/app.min.js"></script>
+
+        <script>
+            $('#reload').click(function(){
+                console.log("asda");
+                $.ajax({
+                    type: 'get',
+                    url: "{{ route('capcha_reload') }}",
+                    success: function(data){
+                        console.log(data);
+                        $( "#captcha_img1" ).load(window.location.href + " #captcha_img1" ); 
+                        // $("#captcha_img1").html(data.html);
+                    }
+                });
+            });
+        </script>
 
     </body>
 

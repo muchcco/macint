@@ -11,5 +11,17 @@ class Personalinter extends Model
 
     protected $table = 'personal_inter';
 
-    protected $fillable = [ 'id', 'id_persona', 'validez', 'observacion', 'estado', 'fec_entrega', 'fec_devol', 'entidad'];
+    protected $fillable = [ 
+                            'id', 
+                            'id_persona', 
+                            'validez', 
+                            'observacion', 
+                            'estado', 
+                            'firma_tic',
+                            'fec_firma_tic', 
+                            'firma_cor',
+                            'fec_firma_cor', 
+                            'fec_entrega', 
+                            'fec_devol'
+                        ];
 }

@@ -74,7 +74,7 @@ var table_inv_per = () => {
 
     $.ajax({
         type: 'GET',
-        url: "{{ route('m_bienes.tablas.tb_inv_p') }}" ,
+        url: "{{ route('m_bandeja.tablas.tb_ban') }}" ,
         dataType: "json",
         success: function(data){
             document.getElementById("cargar-datos").style.display = 'none';
@@ -93,9 +93,6 @@ var table_inv_per = () => {
                     { "width": "" },
                     { "width": "" },
                     { "width": "" },
-                    { "width": "" },
-                    { "width": "" },
-                    { "width": "" },                    
                     { "width": "" }
                 ]
             });
@@ -193,8 +190,8 @@ var btnStorePdf = () => {
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Inicio</a></li>
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Mis Bienes</a></li>
-                    <li class="breadcrumb-item active">Mi bien</li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Mi Bandeja</a></li>
+                    <li class="breadcrumb-item active">Mi Bandeja</li>
                 </ol>
             </div>
             <h4 class="page-title">Perfil</h4>
@@ -203,51 +200,6 @@ var btnStorePdf = () => {
 </div>     
 <!-- end page title --> 
 
-<div class="row">
-    <div class="col-sm-12">
-        <!-- Profile -->
-        <div class="card bg-primary">
-            <div class="card-body profile-user-box">
-                <div class="row">
-                    <div class="col-sm-8">
-                        <div class="row align-items-center">
-                            <div class="col-auto">
-                                {{-- <div class="avatar-lg">
-                                    <span class="avatar-title bg-success rounded-circle">
-                                        lg
-                                    </span>
-                                </div> --}}
-                                <img src="{{ Avatar::create(auth()->user()->name[0])->toBase64() }}" />
-                            </div>
-                            <div class="col">
-                                <div>
-                                    <h4 class="mt-1 mb-1 text-white"> {{ $usuario_p->nombre }} {{ $usuario_p->ap_pat }} {{ $usuario_p->ap_mat }} </h4>
-                                    <p class="font-13 text-white-50"> {{ $entidad->nom_ent }}</p>
-
-                                    <ul class="mb-0 list-inline text-light">
-                                        <li class="list-inline-item me-3">
-                                            <h5 class="mb-1"> {{  $count }} </h5>
-                                            <p class="mb-0 font-13 text-white-50">Total de bienes asignados</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- end col-->
-
-                    <div class="col-sm-4">
-                        <div class="text-center mt-sm-0 mt-3 text-sm-end">
-                            <button type="button" class="btn btn-light">
-                                <i class="mdi mdi-account-edit me-1"></i> Editar Perfil
-                            </button>
-                        </div>
-                    </div> <!-- end col-->
-                </div> <!-- end row -->
-
-            </div> <!-- end card-body/ profile-user-box-->
-        </div><!--end profile/ card -->
-    </div> <!-- end col-->
-</div>
 
 <!-- end row-->
 
@@ -256,50 +208,13 @@ var btnStorePdf = () => {
         <div class="card">
             <div class="card-body">
 
-                <h4 class="header-title">Lista de bienes asignados</h4>
+                <h4 class="header-title">Mi bandeja de documentos</h4>
                 {{-- <div class="box-tools">
                     <button class="btn btn-primary" data-toggle="modal" data-target="#large-Modal" onclick="btnAddProducto('{{ $personal->id }}')"> Agregar Producto</button>
                 </div> --}}
                 <br />
-                <p>Verificar los bienes que se muestran en la siguiente tabla, una vez que haya validado la información acepte la asignacion de bienes</p>
-                <div class="col-sm-12" id="estados_doc">
-                    @if($est == '5')
-                        <div class="text-center mt-sm-0 mt-3 text-sm-end">
-                            <div class="form-group">
-                                <span style="margin-right: 2em;">Aceptar los bienes asignados:</span>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#large-Modal" onclick="btnAsginar()">
-                                    <i class="mdi mdi-check me-1"></i> Aceptar
-                                </button>
-                            </div>                            
-                        </div>
-                    @elseif($est == '4')
-                        <div class="text-center mt-sm-0 mt-3 text-sm-end" >
-                            <div class="form-group">
-                                <span style="margin-right: 2em;">Descargar, firmar el formato y subir al servidor:</span>
-                                <a href="{{ route('m_bienes.formt_pdf') }}" target="_blank" class="btn btn-secondary" >
-                                    <i class="mdi mdi-arrow-down-bold-box-outline me-1"></i> Descargar
-                                </a>
-                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#large-Modal" onclick="btnSendPdf()">
-                                    <i class="mdi mdi-arrow-up-bold-box-outline me-1"></i> Subir
-                                </button>
-                            </div>                    
-                        </div>
-                    @elseif($est == '1')
-                        <div class="text-center mt-sm-0 mt-3 text-sm-end" >
-                            <div class="form-group">
-                                <span style="" class="text-primary">En proceso de firmas... tiempo estimado 24 horas. {{ $por }} %</span><br />                                
-                                <div class="progreso-firm" >
-                                    <div  class="progress col-12 ">
-                                        <div style="float:right; width:100%;  ">
-                                            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {{ $por }}%;" aria-valuenow="{{ $por }}" aria-valuemin="0" aria-valuemax="100">{{ $por }} %</div> 
-                                        </div>                                           
-                                    </div>                                        
-                                </div>                                
-                            </div>                    
-                        </div>
-                    @endif
-                </div>
-                <br />
+                <p>Verificar los documentos adjuntos a su bandeja</p>
+                
 
                 <div class="col-sm-12" id="cargar-datos">
                     <i class="fa fa-spinner fa-spin"></i> Cargando tabla...  Si no carga la tabla por favor actualize la página
@@ -311,15 +226,12 @@ var btnStorePdf = () => {
                             <thead class="bg-dark" style="color: #fff;">
                                 <tr>
                                     <th>N°</th>
-                                    <th>Control patrimonial</th>
-                                    <th>Descripcion</th>
-                                    <th>Marca</th>
-                                    <th>Modelo</th>
-                                    <th>Serie - Medida</th>
-                                    <th>Color</th>
-                                    <th>Estado</th>
-                                    <th>Observación</th>
-                                    <th>Acción</th>
+                                    <th>Apellidos y Nombres</th>
+                                    <th>Entidad</th>
+                                    <th>Fecha de firma</th>
+                                    <th>Firma coordinador</th>
+                                    <th>Firma Especialista TIC</th>
+                                    <th>Firmas Adjuntas</th>
                                 </tr>
                             </thead>
                             <tbody id="table_inv_per_body">

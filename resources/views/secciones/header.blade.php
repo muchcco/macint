@@ -14,11 +14,12 @@
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <span class="account-user-avatar "> 
-                    <div class="avatar-xs ">
+                    {{-- <div class="avatar-xs ">
                         <span class="avatar-title bg-success rounded-circle">
                             {{ auth()->user()->name[0] }}
                         </span>
-                    </div>
+                    </div> --}}
+                    <img src="{{ Avatar::create(auth()->user()->name[0])->toBase64() }}" />
                 </span>
                 <span>
                     <span class="account-user-name">{{ auth()->user()->name }}</span>

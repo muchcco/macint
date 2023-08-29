@@ -98,6 +98,11 @@ var btnStoreAsesor = () => {
         $('#dni').addClass("hasError");
     } else {
         $('#dni').removeClass("hasError");
+    }
+    if ($('#correo').val() == null || $('#correo').val() == '') {
+        $('#correo').addClass("hasError");
+    } else {
+        $('#correo').removeClass("hasError");
     } 
     if ($('#entidad').val() == null || $('#entidad').val() == '') {
         $('#entidad').addClass("hasError");
@@ -122,6 +127,8 @@ var btnStoreAsesor = () => {
     formData.append("dni", $("#dni").val());
     formData.append("entidad", $("#entidad").val());
     formData.append("sexo", $("#sexo").val());
+    formData.append("fech_nac", $("#fech_nac").val());
+    formData.append("correo", $("#correo").val());
     formData.append("telefono", $("#telefono").val());
     formData.append("_token", $("input[name=_token]").val());
 
@@ -177,7 +184,8 @@ var btnUpdateAsesor = (id) => {
     formData.append("id", id);
     formData.append("nombre", $("#nombre").val());
     formData.append("ap_pat", $("#ap_pat").val());
-    formData.append("ap_mat", $("#ap_mat").val());
+    formData.append("ap_mat", $("#ap_mat").val());    
+    formData.append("fech_nac", $("#fech_nac").val());
     formData.append("dni", $("#dni").val());
     formData.append("entidad", $("#entidad").val());
     formData.append("sexo", $("#sexo").val());
@@ -250,6 +258,10 @@ var isNumber = (evt) =>{
   return true;
 }
 
+var isMayus = (e) => {
+    e.value = e.value.toUpperCase();
+}
+
 </script>
 
 
@@ -302,7 +314,7 @@ var isNumber = (evt) =>{
                                     <th>DNI</th>
                                     <th>Entidad</th>
                                     <th>Sexo</th>
-                                    <th>telefono</th>
+                                    <th>teléfono</th>
                                     <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>

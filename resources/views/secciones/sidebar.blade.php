@@ -34,12 +34,12 @@
 
             <li class="side-nav-title side-nav-item">Navigation</li>
 
-            <li class="@if (Request::is('/')) menuitem-active @endif">
+            <li class="side-nav-item @if (Request::is('/')) menuitem-active @endif">
                 <a href="{{ route('inicio') }}" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span> Panel de Inicio </span>
                 </a>
-            </li> 
+            </li>
 
             <li class="side-nav-title side-nav-item">MODULOS</li>
 
@@ -85,12 +85,29 @@
                 </a>
             </li>
 
-            <li class="side-nav-title side-nav-item mt-1">mi cuenta</li>
+            <li class="side-nav-title side-nav-item mt-1">mi perfil</li>
 
             <li class="side-nav-item @if (Request::is('m_bienes*')) menuitem-active @endif"">
                 <a href="{{ route('m_bienes.m_bien') }}" class="side-nav-link">
                     <i class="mdi-account-outline"></i>
                     <span> Mis bienes </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item @if (Request::is('m_bandeja*')) menuitem-active @endif"">
+                <a href="{{ route('m_bandeja.m_bandeja') }}" class="side-nav-link">
+                    <i class="dripicons-mail"></i>
+                    <span> Mi Bandeja </span>
+                </a>
+            </li>
+
+            <li class="side-nav-title side-nav-item mt-1">ADMINISTRADOR</li>
+
+            <li class="side-nav-item @if (Request::is('usuarios*')) menuitem-active @endif"">
+                <a href="{{ route('usuarios.index') }}" class="side-nav-link">
+                    <i class=" dripicons-user-group
+                    "></i>
+                    <span> Usuarios </span>
                 </a>
             </li>
 

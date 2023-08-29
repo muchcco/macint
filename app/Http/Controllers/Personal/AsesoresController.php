@@ -1,20 +1,21 @@
 <?php
 
 namespace App\Http\Controllers\Personal;
-use Illuminate\Support\Facades\DB;
-
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
-use App\Models\Personal;
-use App\Models\Entidad;
-
 use DateTime;
+
 use Response;
 use DatePeriod;
 
 use DateInterval;
 use Carbon\Carbon;
+
+use App\Models\Entidad;
+use App\Models\Personal;
+use Illuminate\Http\Request;
+
+use App\Models\Personalinter;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class AsesoresController extends Controller
 {
@@ -42,6 +43,7 @@ class AsesoresController extends Controller
                 'dni' => 'required',
                 'entidad' => 'required',
                 'sexo' => 'required',
+                'correo' => 'required',
                 'telefono' => 'required',
             ]);
 
@@ -53,11 +55,20 @@ class AsesoresController extends Controller
             $save->dni = $request->dni;
             $save->entidad = $request->entidad;
             $save->sexo = $request->sexo;
+            $save->correo = $request->correo;
+            $save->fech_nac = $request->fech_nac;
             $save->telefono = $request->telefono;
             $save->externo = 1;
             $save->save();
 
+            $per = new Personalinter;
+            $per->id_personal = $save->id;
+            $per->validez = 0;
+            $per->estado = 5;
+            $per->save();
+
             return $save;
+            
         } catch (\Exception $e) {
             //Si existe algún error en la Transacción
             $response_ = response()->json([
@@ -93,6 +104,8 @@ class AsesoresController extends Controller
             $save->dni = $request->dni;
             $save->entidad = $request->entidad;
             $save->sexo = $request->sexo;
+            $save->correo = $request->correo;
+            $save->fech_nac = $request->fech_nac;
             $save->flag = $request->flag;
             $save->telefono = $request->telefono;
             $save->save();

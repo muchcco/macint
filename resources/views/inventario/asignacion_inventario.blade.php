@@ -255,7 +255,7 @@ var btnStoreObs = () => {
                     <p class="font-13"> Asesor de servicio de la entidad {{ $personal->nombre }}</p>
                     <p>Estado: {{ $per_inter != null ? $per_inter->estado: 'INICIADO' }} </p>
                     <p>Aprobado por el Asesor: {{ $per_inter != null ? 'si': 'no' }}</p>
-                    <p class="">Total de bienes asignados: {{ $count }} </p>
+                    <p class="" id="count_inv">Total de bienes asignados: {{ $count }} </p>
             
                     
                 </div>

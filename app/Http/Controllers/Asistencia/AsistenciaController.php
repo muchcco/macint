@@ -29,11 +29,17 @@ class AsistenciaController extends Controller
 
     public function tb_asistencia(Request $request)
     {
-        $fecha = Carbon::now()->format('Y-m-d');  
+        $fecha = Carbon::now()->format('Y-m-d');
+
+        $entidad = Entidad::select('nombre_abrv as nombre_ent', 'id');
 
         $query = Asistencia::join('personal', 'personal.dni', '=', 'asistencia.dni')
                             ->join('mac', 'mac.id', '=', 'asistencia.id_mac')
+                            ->leftJoinSub($entidad, 'i', function($join) {
+                                $join->on('personal.entidad', '=', 'i.id');
+                            })
                             ->where('fecha', $fecha)
+                            ->where('hora', '<=', '09:30:00')
                             ->get();
         
         $view = view('asistencia.tablas.tb_asistencia', compact('query'))->render();

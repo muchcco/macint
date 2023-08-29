@@ -179,6 +179,12 @@ return [
 
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
+        Laravolt\Avatar\ServiceProvider::class,
+
+        Mews\Captcha\CaptchaServiceProvider::class,
+
+        Spatie\Permission\PermissionServiceProvider::class,
+
     ],
 
     /*
@@ -195,6 +201,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // ...
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Avatar'    => Laravolt\Avatar\Facade::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
 
     ])->toArray(),
 

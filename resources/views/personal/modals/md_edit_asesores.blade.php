@@ -11,25 +11,37 @@
                 <div class="row mb-3">
                     <label  class="col-3 col-form-label">Nombres</label>
                     <div class="col-9">
-                        <input type="text" class="form-control" name="nombre" id="nombre" value="{{ $asesor->nombre }}" >
+                        <input type="text" class="form-control" name="nombre" id="nombre" value="{{ $asesor->nombre }}" onkeyup="isMayus(this)">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label  class="col-3 col-form-label">Apellido Paterno</label>
                     <div class="col-9">
-                        <input type="text" class="form-control" name="ap_pat" id="ap_pat" value="{{ $asesor->ap_pat }}">
+                        <input type="text" class="form-control" name="ap_pat" id="ap_pat" value="{{ $asesor->ap_pat }}" onkeyup="isMayus(this)">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label  class="col-3 col-form-label">Apellido Materno</label>
                     <div class="col-9">
-                        <input type="text" class="form-control" name="ap_mat" id="ap_mat" value="{{ $asesor->ap_mat }}">
+                        <input type="text" class="form-control" name="ap_mat" id="ap_mat" value="{{ $asesor->ap_mat }}" onkeyup="isMayus(this)">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label  class="col-3 col-form-label">DNI</label>
                     <div class="col-9">
                         <input type="text" class="form-control" name="dni" id="dni" value="{{ $asesor->dni }}" onkeypress="return isNumber(event)">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label  class="col-3 col-form-label">Correo</label>
+                    <div class="col-9">
+                        <input type="text" class="form-control" name="correo" id="correo" value="{{ $asesor->correo }}">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label  class="col-3 col-form-label">Fecha de nacimiento</label>
+                    <div class="col-9"> 
+                        <input type="date" class="form-control" name="fech_nac" id="fech_nac" value="{{ $asesor->fech_nac == NULL ? '' : \Carbon\Carbon::parse($asesor->fech_nac)->format('Y-m-d') }}">
                     </div>
                 </div>
                 <div class="row mb-3">

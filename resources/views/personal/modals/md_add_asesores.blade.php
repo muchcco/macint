@@ -11,25 +11,37 @@
                 <div class="row mb-3">
                     <label  class="col-3 col-form-label">Nombres</label>
                     <div class="col-9">
-                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombres">
+                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombres" onkeyup="isMayus(this)">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label  class="col-3 col-form-label">Apellido Paterno</label>
                     <div class="col-9">
-                        <input type="text" class="form-control" name="ap_pat" id="ap_pat" placeholder="Apellido Paterno">
+                        <input type="text" class="form-control" name="ap_pat" id="ap_pat" placeholder="Apellido Paterno" onkeyup="isMayus(this)">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label  class="col-3 col-form-label">Apellido Materno</label>
                     <div class="col-9">
-                        <input type="text" class="form-control" name="ap_mat" id="ap_mat" placeholder="Apellido Materno">
+                        <input type="text" class="form-control" name="ap_mat" id="ap_mat" placeholder="Apellido Materno" onkeyup="isMayus(this)">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label  class="col-3 col-form-label">DNI</label>
                     <div class="col-9">
                         <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI" onkeypress="return isNumber(event)">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label  class="col-3 col-form-label">Correo</label>
+                    <div class="col-9">
+                        <input type="text" class="form-control" name="correo" id="correo" placeholder="Correo" >
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label  class="col-3 col-form-label">Fecha de nacimiento</label>
+                    <div class="col-9">
+                        <input type="date" class="form-control" name="fech_nac" id="fech_nac" >
                     </div>
                 </div>
                 <div class="row mb-3">

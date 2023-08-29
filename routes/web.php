@@ -9,11 +9,18 @@ use App\Http\Controllers\Personal\PcmController;
 use App\Http\Controllers\Almacen\AlmacenController;
 use App\Http\Controllers\Personal\BienesController;
 use App\Http\Controllers\Personal\PcmTabController;
+use App\Http\Controllers\Personal\BandejaController;
+use App\Http\Controllers\Usuarios\UsuarioController;
 use App\Http\Controllers\Personal\AsesoresController;
 use App\Http\Controllers\Inventari\InventarioController;
 use App\Http\Controllers\Personal\AsesoresTabController;
 use App\Http\Controllers\Asistencia\AsistenciaController;
 
+Route::get('capcha_reload', [PagesController::class, 'capcha_reload'])->name('capcha_reload');
+
+// Route::get('correo', function(){
+//     return view('correos.creausuario');
+// });
 
 Auth::routes();
 
@@ -74,6 +81,23 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix'=>'m_bienes','as'=>'m_bienes.' ],function () {
         Route::get('/m_bien' , [BienesController::class, 'm_bien'])->name('m_bien');
+        Route::get('/tablas/tb_inv_p' , [BienesController::class, 'tb_inv_p'])->name('tablas.tb_inv_p');
+        Route::post('asig_bien' , [BienesController::class, 'asig_bien'])->name('asig_bien');
+        Route::get('formt_pdf' , [BienesController::class, 'formt_pdf'])->name('formt_pdf');
+        Route::post('/modals/up_formato' , [BienesController::class, 'up_formato'])->name('modals.up_formato');
+        Route::post('store_pdf' , [BienesController::class, 'store_pdf'])->name('store_pdf');
+    }); 
+
+    Route::group(['prefix'=>'m_bandeja','as'=>'m_bandeja.' ],function () {
+        Route::get('/m_bandeja' , [BandejaController::class, 'm_bandeja'])->name('m_bandeja');
+        Route::get('/tablas/tb_ban' , [BandejaController::class, 'tb_ban'])->name('tablas.tb_ban');
+    }); 
+
+    Route::group(['prefix'=>'usuarios','as'=>'usuarios.' ],function () {
+        Route::get('/index' , [UsuarioController::class, 'index'])->name('index');
+        Route::get('/tablas/tb_usuarios' , [UsuarioController::class, 'tb_usuarios'])->name('tablas.tb_usuarios');
+        Route::post('/modals/md_add_usuario' , [UsuarioController::class, 'md_add_usuario'])->name('modals.md_add_usuario');
+        Route::post('store_user' , [UsuarioController::class, 'store_user'])->name('store_user');
     }); 
 
 });

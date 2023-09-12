@@ -3,7 +3,7 @@
     <!-- LOGO -->
     <a href="index.html" class="logo text-center logo-light">
         <span class="logo-lg">
-            <img src="{{  asset('assets/images/logo.png')}}" alt="" height="16">
+            <img src="{{  asset('assets/images/logo-pcm.png')}}" alt="" height="40">
         </span>
         <span class="logo-sm">
             <img src="assets/images/logo_sm.png" alt="" height="16">
@@ -12,7 +12,7 @@
 
 
     <!-- Help Box -->
-    {{-- <div class="help-box text-white text-center">
+    <div class="help-box text-white text-center">
         
         <div class="avatar-md txt-mid">
             <span class="avatar-title bg-success rounded linesa">
@@ -20,9 +20,10 @@
             </span>
         </div>
         <h5 class="mt-3">{{ auth()->user()->name }}</h5>
-        <p class="mb-3">{{ auth()->user()->email }}</p>
-        <a href="javascript: void(0);" class="btn btn-outline-light btn-sm">Editar</a>
-    </div> --}}
+        <p class="mb-0">{{ auth()->user()->email }}</p>
+        <p class="mb-0">Rol: {{ auth()->user()->getRoleNames()->implode(', ') }}</p>
+        {{-- <a href="javascript: void(0);" class="btn btn-outline-light btn-sm">Editar</a> --}}
+    </div>
     <!-- end Help Box -->
 
     <div class="h-100" id="leftside-menu-container" data-simplebar="">
@@ -61,9 +62,9 @@
                         <li class="@if (Request::is('personal/asesores*')) menuitem-active @endif">
                             <a href="{{ route('personal.asesores') }}">Asesores</a>
                         </li>
-                        {{-- <li class="@if (Request::is('personal/pcm*')) menuitem-active @endif">
-                            <a href="layouts-detached.html">PCM</a>
-                        </li> --}}
+                        <li class="@if (Request::is('personal/pcm*')) menuitem-active @endif">
+                            <a href="{{ route('personal.pcm') }}">PCM</a>
+                        </li>
                     </ul>
                 </div>
             </li>

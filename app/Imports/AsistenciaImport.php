@@ -18,14 +18,20 @@ class AsistenciaImport implements  ToModel, WithBatchInserts, WithChunkReading
     {
         $fecha = Date::excelToDateTimeObject($row[6])->format('Y-m-d');
         $hora = Date::excelToDateTimeObject($row[6])->format('H:i:s');
+        $año = Date::excelToDateTimeObject($row[6])->format('Y');
+        $mes = Date::excelToDateTimeObject($row[6])->format('m');
+        
         // dd($hora);
         $save = new Asistencia;
         $save->tipo_entidad = $row[1];
         $save->dni = $row[2];
         $save->fecha = $fecha;
         $save->hora = $hora;
+        $save->año = $año;
+        $save->mes = $mes;
         $save->id_mac = $row[4];
         $save->fecha_biometrico = Date::excelToDateTimeObject($row[6]);
+        $save->corr_dia = $row[0];
         $save->save();
     }
 

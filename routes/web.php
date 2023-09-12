@@ -28,6 +28,10 @@ Route::group(['middleware' => ['auth']], function () {
     //PAGINA DE INICIO
     Route::get('/' , [PagesController::class, 'index'])->name('inicio');
 
+    Route::get('/home', function(){
+        return view('inicio');
+    });
+
 
     Route::group(['prefix'=>'personal','as'=>'personal.' ],function () {
 
@@ -43,8 +47,8 @@ Route::group(['middleware' => ['auth']], function () {
 
         //////  PCM
 
-        Route::get('/asesores' , [AsesoresController::class, 'asesores'])->name('asesores');
-        Route::get('/tb_asesores' , [AsesoresController::class, 'tb_asesores'])->name('tb_asesores');
+        Route::get('/pcm' , [PcmController::class, 'pcm'])->name('pcm');
+        Route::get('/tablas/tb_pcm' , [PcmController::class, 'tb_pcm'])->name('tablas.tb_pcm');
 
     });
 
@@ -53,7 +57,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/asistencia' , [AsistenciaController::class, 'asistencia'])->name('asistencia');
         Route::get('/tablas/tb_asistencia' , [AsistenciaController::class, 'tb_asistencia'])->name('tablas.tb_asistencia');
         Route::post('/modals/md_add_asistencia' , [AsistenciaController::class, 'md_add_asistencia'])->name('modals.md_add_asistencia');
+        Route::post('/modals/md_detalle' , [AsistenciaController::class, 'md_detalle'])->name('modals.md_detalle');
         Route::post('/store_asistencia' , [AsistenciaController::class, 'store_asistencia'])->name('store_asistencia');
+
+        //DETALLE ASISTENCIA
+        Route::get('/det_us/{id}.html' , [AsistenciaController::class, 'det_us'])->name('det_us');
+        Route::get('/tablas/tb_det_us' , [AsistenciaController::class, 'tb_det_us'])->name('tablas.tb_det_us');
+
+        //EXPORT DATA
+        Route::get('/asistencia_pdf' , [AsistenciaController::class, 'asistencia_pdf'])->name('asistencia_pdf');
+        Route::get('/asistencia_excel' , [AsistenciaController::class, 'asistencia_excel'])->name('asistencia_excel');
+
 
     });
 

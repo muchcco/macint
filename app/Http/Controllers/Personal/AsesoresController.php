@@ -47,6 +47,12 @@ class AsesoresController extends Controller
                 'telefono' => 'required',
             ]);
 
+            if($request->entidad == '17'){
+                $externo = 0;
+            }else{
+                $externo = 1;
+            }
+
 
             $save = new Personal;
             $save->nombre = $request->nombre;
@@ -58,7 +64,7 @@ class AsesoresController extends Controller
             $save->correo = $request->correo;
             $save->fech_nac = $request->fech_nac;
             $save->telefono = $request->telefono;
-            $save->externo = 1;
+            $save->externo = $externo;
             $save->save();
 
             $per = new Personalinter;
@@ -96,6 +102,7 @@ class AsesoresController extends Controller
 
     public function update_asesores(Request $request)
     {
+        // dd($request->all());
         try{
             $save = Personal::findOrFail($request->id);
             $save->nombre = $request->nombre;

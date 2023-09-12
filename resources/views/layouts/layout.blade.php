@@ -53,8 +53,17 @@
                 font-size: 1em;
             }
 
-            .nobtn:hover{   
+            .nobtn:hover{
                 text-decoration: underline; 
+            }
+
+            .btn-primary{
+                background: #0074d9 !important;
+                border: 1px solid #095496 !important;
+            }
+
+            .help-box {
+                margin-top: 10px !important;
             }
 
         </style>
@@ -136,6 +145,10 @@
         <script src="{{ asset('assets/js/app.min.js')}}"></script>
         <script src="{{ asset('https://cdn.jsdelivr.net/npm/toastify-js')}}"></script>
         <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js')}}"></script>
+
+        <!-- Development -->
+        <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+        <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 
         @yield('script')
         

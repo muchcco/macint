@@ -1,19 +1,20 @@
-@foreach ($query as $q)
+@foreach ($query as $i => $q)
 <tr>
-    <td></td>
-    <td>{{ $q->nombre }} {{ $q->ap_pat }} {{ $q->ap_mat }}</td>
-    <td>{{ $q->dni }}</td>
-    <td>{{ $q->nombre_ent }}</td>
-    <td>{{ $q->descripcion }}</td>
-    <td>
-        @if (date("H:i:s", strtotime($q->fecha_biometrico)) > '07:46:00')
+    <th> {{ $i + 1 }} </th>
+    <th>{{ $q->nombre }} {{ $q->ap_pat }} {{ $q->ap_mat }} <a href="{{ route('asistencia.det_us', $q->dni) }}">(Registros completos)</a> </th>
+    <th>{{ $q->dni }}</th>
+    <th>{{ $q->nombre_ent }}</th>
+    <th>{{ $q->descripcion }}</th>
+    <th>
+        @if (date("H:i:s", strtotime($q->fecha_biometrico)) > '08:16:00')
             <span class="badge badge-danger-lighten">TARDE</span>
         @else
             <span class="badge badge-success-lighten">EN HORA</span>
         @endif
-    </td>
-    <td>{{ $q->fecha_biometrico }}</td>
-    <td></td>
+    </th>
+    <th>{{ $q->fecha_biometrico }}</th>
+    <th>
+        <button class="btn btn-primary btn-sm" onclick="btnModalView('{{ $q->dni }}', '{{ $q->fecha_asistencia }}')">Ver completo (Hoy)</button>
+    </th>
 </tr>
-    
 @endforeach

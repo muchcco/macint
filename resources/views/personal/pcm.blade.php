@@ -34,7 +34,7 @@ var tabla = $("#table_personal").DataTable();
 var table_personal = () => {
     $.ajax({
         type: 'GET',
-        url: "{{ route('personal.tablas.tb_asesores') }}" ,
+        url: "{{ route('personal.tablas.tb_pcm') }}" ,
         dataType: "json",
         success: function(data){
             tabla.destroy();
@@ -187,8 +187,8 @@ var btnUpdateAsesor = (id) => {
     formData.append("ap_mat", $("#ap_mat").val());    
     formData.append("fech_nac", $("#fech_nac").val());
     formData.append("dni", $("#dni").val());
-    formData.append("correo", $("#correo").val());
     formData.append("entidad", $("#entidad").val());
+    formData.append("correo", $("#correo").val());
     formData.append("sexo", $("#sexo").val());
     formData.append("flag", $("#flag").val());
     formData.append("telefono", $("#telefono").val());
@@ -277,10 +277,10 @@ var isMayus = (e) => {
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Inicio</a></li>
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Personal</a></li>
-                    <li class="breadcrumb-item active">Asesores</li>
+                    <li class="breadcrumb-item active">PCM</li>
                 </ol>
             </div>
-            <h4 class="page-title">Asesores</h4>
+            <h4 class="page-title">Presidencia de Consejo de Ministros - SSCS - CENTRO MAC</h4>
         </div>
     </div>
 </div>     
@@ -292,7 +292,7 @@ var isMayus = (e) => {
         <div class="card">
             <div class="card-body">
 
-                <h4 class="header-title">Asesores del Centro Mac - junín</h4>
+                <h4 class="header-title">Personal PCM del Centro Mac - junín</h4>
                 <div class="box-tools">
                     <button class="btn btn-primary" data-toggle="modal" data-target="#large-Modal" onclick="btnAddAsesor()"> Agregar</button>
                 </div>

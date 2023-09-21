@@ -19,6 +19,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\AsistenciaExport;
 use App\Imports\AsistenciaImport;
 use Illuminate\Support\Facades\DB;
+use App\Exports\AsistenciaAllExport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -37,13 +38,20 @@ class AsistenciaController extends Controller
 
         $entidad = Entidad::select('nombre_abrv as nombre_ent', 'id');
 
-        $query = Asistencia::join('personal', 'personal.dni', '=', 'asistencia.dni')
+        $query = Asistencia::leftJoin('personal', 'personal.dni', '=', 'asistencia.dni')
                             ->join('mac', 'mac.id', '=', 'asistencia.id_mac')
                             ->leftJoinSub($entidad, 'i', function($join) {
                                 $join->on('personal.entidad', '=', 'i.id');
                             })
-                            ->select('*', 'asistencia.id as idAsistencia', 'asistencia.fecha as fecha_asistencia', 'personal.id as idPersonal')
-                            // ->where('fecha', $fecha)
+                            ->select(
+                                'asistencia.fecha as fecha_asistencia',
+                                DB::raw('MAX(asistencia.id) as idAsistencia'),
+                                DB::raw('MAX(asistencia.fecha_biometrico) as fecha_biometrico'),
+                                'asistencia.dni as n_dni',
+                                DB::raw('CONCAT(personal.nombre, " ", personal.ap_pat, " ", personal.ap_mat) AS nombreu'),
+                                'nombre_ent',
+                                'mac.descripcion'
+                            )
                             ->where(function($que) use ($request) {
                                 $fecha_I = date("Y-m-d");
                                 if($request->fecha != '' ){
@@ -52,15 +60,16 @@ class AsistenciaController extends Controller
                                     $que->where('fecha', $fecha_I);
                                 }
                             })
-                            // ->where('personal.entidad', '1')
                             ->where(function($que) use ($request) {
                                 if($request->entidad != '' ){
                                     $que->where('personal.entidad', $request->entidad);
                                 }
                             })
                             ->where('hora', '<=', '10:10:00')
+                            ->whereNotNull('personal.dni')
+                            ->groupBy('asistencia.fecha', 'personal.id', 'asistencia.dni', 'nombre_ent', 'mac.descripcion')
                             ->get();
-        // var_dump($request->all());  
+        // dd($query);
         
         $view = view('asistencia.tablas.tb_asistencia', compact('query'))->render();
 
@@ -257,7 +266,7 @@ class AsistenciaController extends Controller
         // dd($nombreMES);
 
         $datos_persona = Personal::join('entidad', 'entidad.id', '=', 'personal.entidad')
-                                    ->select('personal.dni', DB::raw("CONCAT(personal.ap_pat,' ',personal.ap_mat,', ',personal.nombre) as nombreu"), 'entidad.nombre_abrv as nombre_entidad', 'personal.sexo', 'personal.telefono', 'personal.flag', 'personal.id' )
+                                    ->select('personal.dni', DB::raw("CONCAT(personal.ap_pat,' ',personal.ap_mat,', ',personal.nombre) as nombreu"), 'entidad.nombre as nombre_entidad','entidad.nombre_abrv as nombre_entidad_abrv' , 'personal.sexo', 'personal.telefono', 'personal.flag', 'personal.id' )
                                     ->where('dni', $request->dni)
                                     ->first();
 
@@ -291,9 +300,81 @@ class AsistenciaController extends Controller
                         ->get();
 
 
-        $export = Excel::download(new AsistenciaExport($query, $datos_persona), 'Datos.xlsx');
+        $export = Excel::download(new AsistenciaExport($query, $datos_persona, $nombreMES), 'REPORTE DE ASISTENCIA CENTRO MAC JUNIN_'.$datos_persona->nombre_entidad_abrv.'_'.$nombreMES.'.xlsx');
 
         return $export;
+    }
+
+    public function det_entidad(Request $request)
+    {
+        return view('asistencia.det_entidad');
+    }
+
+    public function tb_det_entidad(Request $request)
+    {
+        $query = DB::table('entidad as e')
+                        ->select('e.nombre', 'a.mes', 'e.flag', 'e.id', 'a.año')
+                        ->selectRaw('COUNT(DISTINCT p.id) as cantidad_personas_presentes')
+                        ->selectRaw('GROUP_CONCAT(DISTINCT p.dni) AS dnisPorEntidad')
+                        ->join('personal as p', 'p.entidad', '=', 'e.id')
+                        ->leftJoin('asistencia as a', 'a.dni', '=', 'p.dni')
+                        ->where(function($que) use ($request) {
+                            $fecha_mes_actual = Carbon::now()->format('m');
+                            if($request->mes != '' ){
+                                $que->where('mes', $request->mes);
+                            }else{
+                                $que->where('mes', $fecha_mes_actual);
+                            }
+                        })
+                        ->where(function($que) use ($request) {
+                            $fecha_año_actual = Carbon::now()->format('Y');
+                            if($request->año != '' ){
+                                $que->where('año', $request->año);
+                            }else{
+                                $que->where('año', $fecha_año_actual);
+                            }
+                        })
+                        ->whereNotNull('a.mes')
+                        ->where('p.flag', 1)                      
+                        ->groupBy('e.nombre', 'mes', 'e.flag', 'e.id', 'a.año')
+                        ->orderBy('e.nombre', 'asc')
+                        ->get();
+
+        $view = view('asistencia.tablas.tb_det_entidad', compact('query'))->render();
+
+        return response()->json(['html' => $view]);
+    }
+
+    public function dow_resumen(Request $request)
+    {
+        $año_act = Carbon::now()->format('Y');
+        $mes_act = Carbon::now()->format('m');
+
+        $n_dni = $request->n_dnis;
+
+        $estructura_carp = 'archivos_d/zip/' . $request->id . '/' . $año_act . '/' . $mes_act;
+
+        if (!file_exists($estructura_carp)) {
+            mkdir($estructura_carp, 0777, true);
+        }
+
+        $contenidoCarpeta = scandir($estructura_carp);
+
+        $contenidoCarpeta = array_diff($contenidoCarpeta, array('..', '.'));
+
+        if (count($contenidoCarpeta) > 0) {
+            foreach ($contenidoCarpeta as $elemento) {
+                $elementoRuta = $estructura_carp . '/' . $elemento;
+                if (is_file($elementoRuta)) {
+                    unlink($elementoRuta); // Elimina archivos
+                } elseif (is_dir($elementoRuta)) {
+                    rmdir($elementoRuta); // Elimina directorios
+                }
+            }
+        }
+
+        
+        
     }
 
 }

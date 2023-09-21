@@ -16,7 +16,14 @@ use Maatwebsite\Excel\Concerns\WithDefaultStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithBackgroundColor;
 
-class AsistenciaExport implements FromView, WithDefaultStyles, ShouldAutoSize, WithStyles
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
+use Maatwebsite\Excel\Concerns\WithDrawings;
+
+use Maatwebsite\Excel\Concerns\WithTitle;
+
+class AsistenciaExport implements FromView, WithDefaultStyles, ShouldAutoSize,  WithDrawings, WithStyles, WithTitle
 {
     // use Exportable;
 
@@ -24,16 +31,20 @@ class AsistenciaExport implements FromView, WithDefaultStyles, ShouldAutoSize, W
 
     protected $datos_persona;
 
-    function __construct($query, $datos_persona) {
+    protected $nombreMES;
+
+    function __construct($query, $datos_persona, $nombreMES) {
         $this->query = $query;
         $this->datos_persona = $datos_persona;
+        $this->nombreMES = $nombreMES;
     }
     
     public function view(): View
     {
         return view('asistencia.asistencia_excel', [
             'query' => $this->query,
-            'datos_persona' => $this->datos_persona
+            'datos_persona' => $this->datos_persona,
+            'nombreMES' => $this->nombreMES
         ]);
     }
 
@@ -51,27 +62,31 @@ class AsistenciaExport implements FromView, WithDefaultStyles, ShouldAutoSize, W
         ];
     }
 
+    public function drawings()
+    {
+        $drawing = new Drawing();
+        $drawing->setName('Logo');
+        $drawing->setDescription('This is my logo');
+        $drawing->setPath(public_path('assets/images/mac_logo_export.jpg'));
+        $drawing->setHeight(50);
+        $drawing->setCoordinates('A1');
+
+        return [$drawing];
+    }
+
     public function styles(Worksheet $sheet)
     {
-        // Apply border styles to the entire worksheet
-        $sheet->getStyle('A1:M1')->applyFromArray([
-            'font' => [
-                'bold' => true,
-            ],
+        // Aplicar estilo para centrar el texto en todas las celdas de la hoja
+        $sheet->getStyle($sheet->calculateWorksheetDimension())->applyFromArray([
             'alignment' => [
-                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical' => Alignment::VERTICAL_CENTER,
             ],
         ]);
+    }
 
-        // Establecer estilos de bordes para toda la hoja
-        $sheet->setBorderStyle([
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => Border::BORDER_THIN,
-                    'color' => ['argb' => '000'],
-                ],
-            ],
-        ]);
-        
+    public function title(): string
+    {
+        return $this->datos_persona->nombreu;
     }
 }

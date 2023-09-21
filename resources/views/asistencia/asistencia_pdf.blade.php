@@ -17,7 +17,7 @@
 
         .td-mid {
             text-align:center;
-            padding-top: .3em;
+            padding-top: .3em;            
         }
 
         .texto {
@@ -101,7 +101,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($query as $i => $q)
+                @forelse ($query as $i => $q)
                     @php
                         $hora1 = strtotime($q->hora1); // Convierte la hora1 a un timestamp
                         $horaInicial1 = strtotime('06:00:00');
@@ -201,7 +201,11 @@
                         @endif
                         
                     </tr>    
-                @endforeach
+                @empty
+                    <tr>
+                        <th colspan="13" style="text-align: center">No hay datos registrados para este mes... comunicarse con un TIC</th>
+                    </tr>
+                @endforelse
             </tbody>
     
         </table>

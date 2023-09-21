@@ -14,21 +14,19 @@
     <!-- Help Box -->
     <div class="help-box text-white text-center">
         
-        <div class="avatar-md txt-mid">
+        {{-- <div class="avatar-md txt-mid">
             <span class="avatar-title bg-success rounded linesa">
                 {{ auth()->user()->name[0] }}
             </span>
-        </div>
-        <h5 class="mt-3">{{ auth()->user()->name }}</h5>
+        </div> --}}
+        <h5 class="mt-0">{{ auth()->user()->name }}</h5>
         <p class="mb-0">{{ auth()->user()->email }}</p>
         <p class="mb-0">Rol: {{ auth()->user()->getRoleNames()->implode(', ') }}</p>
         {{-- <a href="javascript: void(0);" class="btn btn-outline-light btn-sm">Editar</a> --}}
     </div>
     <!-- end Help Box -->
 
-    <div class="h-100" id="leftside-menu-container" data-simplebar="">
-
-        
+    <div class="h-100" id="leftside-menu-container" data-simplebar="">       
 
         <!--- Sidemenu -->
         <ul class="side-nav">
@@ -100,6 +98,24 @@
                     <i class="dripicons-mail"></i>
                     <span> Mi Bandeja </span>
                 </a>
+            </li>
+
+            <li class="side-nav-item @if (Request::is('novosga*')) menuitem-active @endif">
+                <a data-bs-toggle="collapse" href="#sidebarLayouts2" aria-expanded="false" aria-controls="sidebarLayouts2" class="side-nav-link">
+                    <i class="uil-window"></i>
+                    <span> Novo SGA </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarLayouts2">
+                    <ul class="side-nav-second-level">
+                        <li class="@if (Request::is('novosga/p_espera*')) menuitem-active @endif">
+                            <a href="{{ route('novosga.p_espera') }}">Cuidadanos en Espera</a>
+                        </li>
+                        {{-- <li class="@if (Request::is('novosga/pcm*')) menuitem-active @endif">
+                            <a href="{{ route('novosga.pcm') }}">PCM</a>
+                        </li> --}}
+                    </ul>
+                </div>
             </li>
 
             <li class="side-nav-title side-nav-item mt-1">ADMINISTRADOR</li>

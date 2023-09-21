@@ -1,8 +1,8 @@
 @foreach ($query as $i => $q)
 <tr>
     <th> {{ $i + 1 }} </th>
-    <th>{{ $q->nombre }} {{ $q->ap_pat }} {{ $q->ap_mat }} <a href="{{ route('asistencia.det_us', $q->dni) }}">(Registros completos)</a> </th>
-    <th>{{ $q->dni }}</th>
+    <th>{{ $q->nombreu }} <a href="{{ route('asistencia.det_us', $q->n_dni) }}">(Registros completos)</a> </th>
+    <th>{{ $q->n_dni }}</th>
     <th>{{ $q->nombre_ent }}</th>
     <th>{{ $q->descripcion }}</th>
     <th>
@@ -14,7 +14,7 @@
     </th>
     <th>{{ $q->fecha_biometrico }}</th>
     <th>
-        <button class="btn btn-primary btn-sm" onclick="btnModalView('{{ $q->dni }}', '{{ $q->fecha_asistencia }}')">Ver completo (Hoy)</button>
+        <button class="btn btn-primary btn-sm" onclick="btnModalView('{{ $q->n_dni }}', '{{ $q->fecha_asistencia }}')">Ver completo (Hoy)</button>
     </th>
 </tr>
 @endforeach

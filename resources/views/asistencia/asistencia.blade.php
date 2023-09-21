@@ -5,7 +5,6 @@
 <link href="{{ asset('assets/css/vendor/dataTables.bootstrap5.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/css/vendor/responsive.bootstrap5.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/css/vendor/buttons.bootstrap5.css')}}" rel="stylesheet" type="text/css" />
-
 @endsection
 
 @section('main')
@@ -52,7 +51,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-4">
+                        {{-- <div class="col-4">
                             <div class="form-group">
                                 <label for="">Estado</label>
                                 <select name="estado" id="estado" class="form-control">
@@ -61,15 +60,21 @@
                                     <option value="2">TARDE</option>
                                 </select>
                             </div>
-                        </div>                      
+                        </div>                       --}}
+                        <div class="col-4">
+                            <div class="form-group mt-3">
+                                <button type="button" class="btn btn-primary btn-sm" id="filtro" onclick="execute_filter()"><i class="mdi mdi-card-search-outline"></i> Buscar</button>
+                                <button class="btn btn-dark btn-sm" id="limpiar"><i class="mdi mdi-broom"></i> Limpiar</button>
+                            </div>
+                        </div>
                     </div>
                     <br />
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="form-group">
                             <button type="button" class="btn btn-primary btn-sm" id="filtro" onclick="execute_filter()">Buscar</button>
                             <button class="btn btn-dark btn-sm" id="limpiar">Limpiar</button>
                         </div>
-                    </div>
+                    </div> --}}
                                
             </div> <!-- end card-body-->
         </div>
@@ -84,6 +89,7 @@
                 <h4 class="header-title">Asistencia del Centro Mac - junín</h4>
                 <div class="box-tools">
                     <button class="btn btn-success" data-toggle="modal" data-target="#large-Modal" onclick="btnAddAsistencia()"> Agregar Asistencia</button>
+                    <a class="btn btn-info" href="{{ route('asistencia.det_entidad') }}"> Asistencia por entidad</a>
                 </div>
                 <br />
                 <p>Horario de actualización de hora por dia: 10:00 am - 08.00 pm</p>
@@ -164,7 +170,7 @@ var table_asistencia = ( fecha = '', entidad = '', estado = '' ) => {
             tabla = $("#table_asistencia").DataTable({
                 "responsive": true,
                 "autoWidth": false,
-                "ordering": false,
+                "ordering": true,
                 language: {"url": "{{ asset('js/Spanish.json')}}"}, 
                 "columns": [
                     { "width": "" },
@@ -214,7 +220,7 @@ var execute_filter = () =>{
             document.getElementById("filtro").style.disabled = true;
         },
         success:function(data){
-            document.getElementById("filtro").innerHTML = 'Buscar';
+            document.getElementById("filtro").innerHTML = '<i class="mdi mdi-card-search-outline"></i> Buscar';
             document.getElementById("filtro").style.disabled = false;
             table_asistencia(fecha, entidad, estado);
         }

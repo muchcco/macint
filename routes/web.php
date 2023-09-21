@@ -6,6 +6,7 @@ use App\Http\Controllers\PagesController;
 
 
 use App\Http\Controllers\Personal\PcmController;
+use App\Http\Controllers\NovoSGA\EsperaController;
 use App\Http\Controllers\Almacen\AlmacenController;
 use App\Http\Controllers\Personal\BienesController;
 use App\Http\Controllers\Personal\PcmTabController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Personal\AsesoresTabController;
 use App\Http\Controllers\Asistencia\AsistenciaController;
 
 Route::get('capcha_reload', [PagesController::class, 'capcha_reload'])->name('capcha_reload');
+Route::get('novosga/nuevo_registro' , [EsperaController::class, 'nuevo_registro'])->name('novosga.nuevo_registro');
 
 // Route::get('correo', function(){
 //     return view('correos.creausuario');
@@ -29,9 +31,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/' , [PagesController::class, 'index'])->name('inicio');
 
     Route::get('/home', function(){
-        return view('inicio');
+        return redirect('/');
     });
 
+    Route::group(['prefix'=>'asesores','as'=>'asesores.' ],function () {
+
+
+
+    });
 
     Route::group(['prefix'=>'personal','as'=>'personal.' ],function () {
 
@@ -59,6 +66,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/modals/md_add_asistencia' , [AsistenciaController::class, 'md_add_asistencia'])->name('modals.md_add_asistencia');
         Route::post('/modals/md_detalle' , [AsistenciaController::class, 'md_detalle'])->name('modals.md_detalle');
         Route::post('/store_asistencia' , [AsistenciaController::class, 'store_asistencia'])->name('store_asistencia');
+
+        //POR ENTIDAD
+        Route::get('/det_entidad.html' , [AsistenciaController::class, 'det_entidad'])->name('det_entidad'); 
+        Route::get('/tablas/tb_det_entidad' , [AsistenciaController::class, 'tb_det_entidad'])->name('tablas.tb_det_entidad');
+        Route::get('/dow_resumen' , [AsistenciaController::class, 'dow_resumen'])->name('dow_resumen');
 
         //DETALLE ASISTENCIA
         Route::get('/det_us/{id}.html' , [AsistenciaController::class, 'det_us'])->name('det_us');
@@ -113,6 +125,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/modals/md_add_usuario' , [UsuarioController::class, 'md_add_usuario'])->name('modals.md_add_usuario');
         Route::post('store_user' , [UsuarioController::class, 'store_user'])->name('store_user');
     }); 
+
+    Route::group(['prefix'=>'novosga','as'=>'novosga.' ],function () {
+        Route::get('/p_espera' , [EsperaController::class, 'p_espera'])->name('p_espera');
+        Route::get('/tablas/tb_espera' , [EsperaController::class, 'tb_espera'])->name('tablas.tb_espera');
+        
+
+    });
 
 });
 

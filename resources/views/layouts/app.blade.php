@@ -27,6 +27,12 @@
             background-color: #66999;
             
         }
+
+        .login-div{
+            position: relative;
+            /* border: 1px solid red; */
+            margin-top: 15em;
+        }
     </style>
 
 </head>
@@ -86,7 +92,7 @@
             </div>
         </nav>
 
-        <main class="py-4" >
+        <main class="py-4 login-div" >
             @yield('content')
         </main>
     </div>

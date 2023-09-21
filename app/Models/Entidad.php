@@ -11,7 +11,7 @@ class Entidad extends Model
 
     protected $table = 'entidad';
 
-    protected $fillable = [ 'id', 'nombre', 'nombre_abrv'];
+    protected $fillable = [ 'id', 'id_novo', 'nombre', 'nombre_abrv', 'flag'];
 
     public $timestamps = false;
 }

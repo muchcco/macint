@@ -66,6 +66,11 @@
                 margin-top: 10px !important;
             }
 
+            .sorting::before, .sorting::after{
+                margin-top: -9px !important;
+            }
+
+
         </style>
 
     </head>

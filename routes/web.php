@@ -16,6 +16,7 @@ use App\Http\Controllers\Personal\AsesoresController;
 use App\Http\Controllers\Inventari\InventarioController;
 use App\Http\Controllers\Personal\AsesoresTabController;
 use App\Http\Controllers\Asistencia\AsistenciaController;
+use App\Http\Controllers\NovoSGA\ActivarController;
 
 Route::get('capcha_reload', [PagesController::class, 'capcha_reload'])->name('capcha_reload');
 Route::get('novosga/nuevo_registro' , [EsperaController::class, 'nuevo_registro'])->name('novosga.nuevo_registro');
@@ -130,6 +131,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/p_espera' , [EsperaController::class, 'p_espera'])->name('p_espera');
         Route::get('/tablas/tb_espera' , [EsperaController::class, 'tb_espera'])->name('tablas.tb_espera');
         
+        Route::get('/enti_activo' , [ActivarController::class, 'enti_activo'])->name('enti_activo');
 
     });
 

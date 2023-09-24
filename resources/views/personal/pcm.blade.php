@@ -292,7 +292,7 @@ var isMayus = (e) => {
         <div class="card">
             <div class="card-body">
 
-                <h4 class="header-title">Personal PCM del Centro Mac - junín</h4>
+                <h4 class="header-title">Registro de Personal PCM del Centro Mac - junín</h4>
                 <div class="box-tools">
                     <button class="btn btn-primary" data-toggle="modal" data-target="#large-Modal" onclick="btnAddAsesor()"> Agregar</button>
                 </div>

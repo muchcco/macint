@@ -256,7 +256,7 @@ var btnStorePdf = () => {
         <div class="card">
             <div class="card-body">
 
-                <h4 class="header-title">Lista de bienes asignados</h4>
+                <h4 class="header-title">Acta de entrega de bienes</h4>
                 {{-- <div class="box-tools">
                     <button class="btn btn-primary" data-toggle="modal" data-target="#large-Modal" onclick="btnAddProducto('{{ $personal->id }}')"> Agregar Producto</button>
                 </div> --}}

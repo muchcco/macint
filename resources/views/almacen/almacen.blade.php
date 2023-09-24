@@ -53,6 +53,7 @@ var table_almacen = () => {
                     { "width": "" },
                     { "width": "" },
                     { "width": "" },
+                    { "width": "" },
                     { "width": "" }
                 ]
             });
@@ -161,13 +162,14 @@ var btnStoreTxt = () => {
                             <thead class="bg-dark" style="color: #fff;">
                                 <tr>
                                     <th>N°</th>
-                                    <th>Codigo patrimonial</th>
-                                    <th>codigo pronsace</th>
+                                    <th>Código patrimonial</th>
+                                    <th>código pronsace</th>
                                     <th>Descripcion</th>
                                     <th>Marca</th>
                                     <th>Modelo</th>
                                     <th>Serie</th>
                                     <th>Estado</th>
+                                    <th>Ubicación</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>    
